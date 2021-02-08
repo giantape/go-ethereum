@@ -72,6 +72,11 @@ func (api *PublicEthereumAPI) ChainId() hexutil.Uint64 {
 	if config := api.e.blockchain.Config(); config.IsEIP155(api.e.blockchain.CurrentBlock().Number()) {
 		chainID = config.ChainID
 	}
+
+	if config := api.e.blockchain.Config(); config.IsCheapFork(api.e.blockchain.CurrentBlock().Number()) {
+		chainID = big.NewInt(777) // think slot machine
+	}
+
 	return (hexutil.Uint64)(chainID.Uint64())
 }
 
