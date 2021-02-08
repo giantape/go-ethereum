@@ -329,7 +329,7 @@ type ChainConfig struct {
 	Ethash *EthashConfig `json:"ethash,omitempty"`
 	Clique *CliqueConfig `json:"clique,omitempty"`
 
-	CheapForkBlock      *big.Int `json:"cheapForkBlock,omitempty"` // nil = no fork, 0 = already activated
+	CheapForkBlock *big.Int `json:"cheapForkBlock,omitempty"` // nil = no fork, 0 = already activated
 }
 
 // EthashConfig is the consensus engine configs for proof-of-work based sealing.
