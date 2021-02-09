@@ -70,11 +70,12 @@ func (api *PublicEthereumAPI) Hashrate() hexutil.Uint64 {
 func (api *PublicEthereumAPI) ChainId() hexutil.Uint64 {
 	chainID := new(big.Int)
 	if config := api.e.blockchain.Config(); config.IsEIP155(api.e.blockchain.CurrentBlock().Number()) {
-		chainID = config.ChainID
-	}
-
-	if config := api.e.blockchain.Config(); !config.IsCheapFork(api.e.blockchain.CurrentBlock().Number()) {
-		chainID = big.NewInt(1)
+		if config := api.e.blockchain.Config(); !config.IsCheapFork(api.e.blockchain.CurrentBlock().Number()) {
+			chainID = big.NewInt(1)
+		} else {
+			// only use chain id in cheap fork
+			chainID = config.ChainID
+		}
 	}
 
 	return (hexutil.Uint64)(chainID.Uint64())
