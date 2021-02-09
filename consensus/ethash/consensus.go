@@ -320,8 +320,11 @@ func CalcDifficulty(config *params.ChainConfig, time uint64, parent *types.Heade
 	case config.IsCheapFork(next):
 		// so much easier, the best deal for miner is cheapeth
 		// so easy mine so fast so much gas
-		//return new(big.Int).Div(calcDifficultyEip2384(time, parent), big.NewInt(100000000))
-		return big.NewInt(0x200000)
+		if next.Cmp(config.CheapForkBlock) == 0 {
+		  return big.NewInt(0x20000)
+		} else {
+		  return calcDifficultyEip2384(time, parent)
+		}
 	case config.IsMuirGlacier(next):
 		return calcDifficultyEip2384(time, parent)
 	case config.IsConstantinople(next):
