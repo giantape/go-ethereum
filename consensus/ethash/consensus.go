@@ -44,6 +44,7 @@ var (
 	ConstantinopleBlockReward = big.NewInt(2e+18) // Block reward in wei for successfully mining a block upward from Constantinople
 	maxUncles                 = 2                 // Maximum number of uncles allowed in a single block
 	allowedFutureBlockTime    = 15 * time.Second  // Max time from current time allowed for blocks, before they're considered future blocks
+	calcDifficultyCheap = makeDifficultyCalculator(big.NewInt(900000000))
 
 	// calcDifficultyEip2384 is the difficulty adjustment algorithm as specified by EIP 2384.
 	// It offsets the bomb 4M blocks from Constantinople, so in total 9M blocks.
@@ -324,7 +325,7 @@ func CalcDifficulty(config *params.ChainConfig, time uint64, parent *types.Heade
 		if next.Cmp(config.CheapForkBlock) == 0 {
 			return big.NewInt(0x20000)
 		} else {
-			return calcDifficultyEip2384(time, parent)
+			return calcDifficultyCheap(time, parent)
 		}
 	case config.IsMuirGlacier(next):
 		return calcDifficultyEip2384(time, parent)
