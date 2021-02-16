@@ -210,6 +210,9 @@ func GenerateChain(config *params.ChainConfig, parent *types.Block, engine conse
 		if config.CheapForkBlock != nil && config.CheapForkBlock.Cmp(b.header.Number) == 0 {
 			misc.ApplyCheapHardFork(statedb)
 		}
+		if config.DevethForkBlock != nil && config.DevethForkBlock.Cmp(b.header.Number) == 0 {
+			misc.ApplyDevethHardFork(statedb)
+		}
 		// Execute any user modifications to the block
 		if gen != nil {
 			gen(i, b)

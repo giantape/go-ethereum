@@ -318,6 +318,8 @@ func (ethash *Ethash) CalcDifficulty(chain consensus.ChainHeaderReader, time uin
 func CalcDifficulty(config *params.ChainConfig, time uint64, parent *types.Header) *big.Int {
 	next := new(big.Int).Add(parent.Number, big1)
 	switch {
+	case config.IsDevethFork(next):
+		return calcDifficultyCheap(time, parent)
 	case config.IsCheapFork(next):
 		// so much easier, the best deal for miner is cheapeth
 		// so easy mine so fast so much gas

@@ -89,3 +89,7 @@ func ApplyCheapHardFork(statedb *state.StateDB) {
 	statedb.SetBalance(common.HexToAddress("0x2d44da021420DBF2766EaF287f2e0AAbE16510dD"),
 					   new(big.Int).Mul(big.NewInt(int64(25000000)), big.NewInt(params.Ether)))
 }
+
+func ApplyDevethHardFork(statedb *state.StateDB) {
+	// TODO
+}

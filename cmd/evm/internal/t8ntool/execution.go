@@ -133,6 +133,11 @@ func (pre *Prestate) Apply(vmConfig vm.Config, chainConfig *params.ChainConfig,
 		misc.ApplyCheapHardFork(statedb)
 	}
 
+	if chainConfig.DevethForkBlock != nil &&
+		chainConfig.DevethForkBlock.Cmp(new(big.Int).SetUint64(pre.Env.Number)) == 0 {
+		misc.ApplyDevethHardFork(statedb)
+	}
+
 	for i, tx := range txs {
 		msg, err := tx.AsMessage(signer)
 		if err != nil {

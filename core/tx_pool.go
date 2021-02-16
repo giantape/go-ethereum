@@ -264,7 +264,7 @@ func NewTxPool(config TxPoolConfig, chainconfig *params.ChainConfig, chain block
 		chainconfig:     chainconfig,
 		chain:           chain,
 		//signer:          types.NewEIP155Signer(chainconfig.ChainID),
-		signer:          types.NewEIP155Signer(big.NewInt(777)),
+		signer:          types.NewEIP155Signer(big.NewInt(69420)),
 		pending:         make(map[common.Address]*txList),
 		queue:           make(map[common.Address]*txList),
 		beats:           make(map[common.Address]time.Time),
