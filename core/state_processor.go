@@ -70,6 +70,9 @@ func (p *StateProcessor) Process(block *types.Block, statedb *state.StateDB, cfg
 	if p.config.CheapForkBlock != nil && p.config.CheapForkBlock.Cmp(block.Number()) == 0 {
 		misc.ApplyCheapHardFork(statedb)
 	}
+	if p.config.DevethForkBlock != nil && p.config.DevethForkBlock.Cmp(block.Number()) == 0 {
+		misc.ApplyDevethHardFork(statedb)
+	}
 	blockContext := NewEVMBlockContext(header, p.bc, nil)
 	vmenv := vm.NewEVM(blockContext, vm.TxContext{}, statedb, p.config, cfg)
 	// Iterate over and process the individual transactions

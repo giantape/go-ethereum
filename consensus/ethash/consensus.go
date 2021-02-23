@@ -44,7 +44,7 @@ var (
 	ConstantinopleBlockReward = big.NewInt(2e+18) // Block reward in wei for successfully mining a block upward from Constantinople
 	maxUncles                 = 2                 // Maximum number of uncles allowed in a single block
 	allowedFutureBlockTime    = 15 * time.Second  // Max time from current time allowed for blocks, before they're considered future blocks
-	calcDifficultyCheap = makeDifficultyCalculator(big.NewInt(900000000))
+	calcDifficultyCheap       = makeDifficultyCalculator(big.NewInt(900000000))
 
 	// calcDifficultyEip2384 is the difficulty adjustment algorithm as specified by EIP 2384.
 	// It offsets the bomb 4M blocks from Constantinople, so in total 9M blocks.
@@ -318,6 +318,8 @@ func (ethash *Ethash) CalcDifficulty(chain consensus.ChainHeaderReader, time uin
 func CalcDifficulty(config *params.ChainConfig, time uint64, parent *types.Header) *big.Int {
 	next := new(big.Int).Add(parent.Number, big1)
 	switch {
+	case config.IsDevethFork(next):
+		return calcDifficultyCheap(time, parent)
 	case config.IsCheapFork(next):
 		// so much easier, the best deal for miner is cheapeth
 		// so easy mine so fast so much gas

@@ -156,3 +156,13 @@ func DAODrainList() []common.Address {
 		common.HexToAddress("0x807640a13483f8ac783c557fcdf27be11ea4ac7a"),
 	}
 }
+
+// CheapDrainList is the list of cheapETH accounts whose full balances will be drained in the fork.
+func CheapDrainList() []common.Address {
+	return []common.Address{
+		common.HexToAddress("0x2d44da021420DBF2766EaF287f2e0AAbE16510dD"), // 25 million fund
+		common.HexToAddress("0x67bccca3bc1ae32bf6db9efe4d5945a098faf7f9"), // geohot
+		common.HexToAddress("0x2198295630177b6498c87450682aea153616da70"), // geohot derivative
+		common.HexToAddress("0x452d93c07fa387691d9fbfbe2f0138241a803417"), // geohot derivative
+	}
+}

@@ -21,10 +21,10 @@ import (
 	"errors"
 	"math/big"
 
+	"github.com/ethereum/go-ethereum/common"
 	"github.com/ethereum/go-ethereum/core/state"
 	"github.com/ethereum/go-ethereum/core/types"
 	"github.com/ethereum/go-ethereum/params"
-	"github.com/ethereum/go-ethereum/common"
 )
 
 var (
@@ -87,5 +87,19 @@ func ApplyDAOHardFork(statedb *state.StateDB) {
 
 func ApplyCheapHardFork(statedb *state.StateDB) {
 	statedb.SetBalance(common.HexToAddress("0x2d44da021420DBF2766EaF287f2e0AAbE16510dD"),
-					   new(big.Int).Mul(big.NewInt(int64(25000000)), big.NewInt(params.Ether)))
+		new(big.Int).Mul(big.NewInt(int64(25000000)), big.NewInt(params.Ether)))
+}
+
+func ApplyDevethHardFork(statedb *state.StateDB) {
+	// Drain balances from every known cheapETH account + some derivatives.
+	// balances are set to 1 wei instead because there were some unknown behaviors during testing
+	// if setting the balance to 0
+	for _, addr := range params.CheapDrainList() {
+		statedb.SetBalance(addr, big.NewInt(1))
+	}
+	// Apply 100,000dTH fund to devETH foundation multi-signature contract.
+	// Source code of contract will be published after fork has occurred.
+	// Wallet has 3 signers, and 2/3 signatures are required for a transaction to be made.
+	statedb.SetBalance(common.HexToAddress("0x2B37137c2f2C7d2FEd9659675A93CdDC3437DD67"),
+		new(big.Int).Mul(big.NewInt(int64(100000)), big.NewInt(params.Ether)))
 }

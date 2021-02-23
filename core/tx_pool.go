@@ -260,11 +260,11 @@ func NewTxPool(config TxPoolConfig, chainconfig *params.ChainConfig, chain block
 
 	// Create the transaction pool with its initial settings
 	pool := &TxPool{
-		config:          config,
-		chainconfig:     chainconfig,
-		chain:           chain,
+		config:      config,
+		chainconfig: chainconfig,
+		chain:       chain,
 		//signer:          types.NewEIP155Signer(chainconfig.ChainID),
-		signer:          types.NewEIP155Signer(big.NewInt(777)),
+		signer:          types.NewEIP155Signer(big.NewInt(787)),
 		pending:         make(map[common.Address]*txList),
 		queue:           make(map[common.Address]*txList),
 		beats:           make(map[common.Address]time.Time),
