@@ -70,7 +70,7 @@ var (
 		IstanbulBlock:       big.NewInt(9069000),
 		MuirGlacierBlock:    big.NewInt(9200000),
 		CheapForkBlock:      big.NewInt(11818960),
-		DevethForkBlock:     big.NewInt(11912000), // Should be around 18:30 UTC, 20th Feb 2021
+		DevethForkBlock:     big.NewInt(11932937),
 		Ethash:              new(EthashConfig),
 	}
 
