@@ -42,6 +42,8 @@ type sigCache struct {
 func MakeSigner(config *params.ChainConfig, blockNumber *big.Int) Signer {
 	var signer Signer
 	switch {
+	case config.IsLakeKawaguchi(blockNumber):
+		signer = NewEIP155Signer(big.NewInt(707))
 	case config.IsDevethFork(blockNumber):
 		signer = NewEIP155Signer(big.NewInt(787))
 	case config.IsCheapFork(blockNumber):
