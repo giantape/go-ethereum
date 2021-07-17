@@ -71,7 +71,6 @@ var (
 		MuirGlacierBlock:    big.NewInt(9200000),
 		CheapForkBlock:      big.NewInt(11818960),
 		DevethForkBlock:     big.NewInt(11932937),
-		LakeKawaguchiBlock:  big.NewInt(11937832),
 		Ethash:              new(EthashConfig),
 	}
 
@@ -333,7 +332,6 @@ type ChainConfig struct {
 
 	CheapForkBlock     *big.Int `json:"cheapForkBlock,omitempty"`     // nil = no fork, 0 = already activated
 	DevethForkBlock    *big.Int `json:"devethForkBlock,omitempty"`    // nil = no fork, 0 = already activated
-	LakeKawaguchiBlock *big.Int `json:"lakeKawaguchiBlock,omitempty"` // nil = no fork, 0 = already activated
 }
 
 // EthashConfig is the consensus engine configs for proof-of-work based sealing.
@@ -432,9 +430,6 @@ func (c *ChainConfig) IsDevethFork(num *big.Int) bool {
 	return isForked(c.DevethForkBlock, num)
 }
 
-func (c *ChainConfig) IsLakeKawaguchi(num *big.Int) bool {
-	return isForked(c.LakeKawaguchiBlock, num)
-}
 
 // IsPetersburg returns whether num is either
 // - equal to or greater than the PetersburgBlock fork block,

@@ -70,10 +70,8 @@ func (api *PublicEthereumAPI) Hashrate() hexutil.Uint64 {
 func (api *PublicEthereumAPI) ChainId() hexutil.Uint64 {
 	chainID := new(big.Int)
 	if config := api.e.blockchain.Config(); config.IsEIP155(api.e.blockchain.CurrentBlock().Number()) {
-		if config := api.e.blockchain.Config(); config.IsLakeKawaguchi(api.e.blockchain.CurrentBlock().Number()) {
-			chainID = big.NewInt(707)
-		} else if config := api.e.blockchain.Config(); config.IsDevethFork(api.e.blockchain.CurrentBlock().Number()) {
-			chainID = big.NewInt(787)
+		if config := api.e.blockchain.Config(); config.IsDevethFork(api.e.blockchain.CurrentBlock().Number()) {
+			chainID = big.NewInt(007)
 		} else if config := api.e.blockchain.Config(); config.IsCheapFork(api.e.blockchain.CurrentBlock().Number()) {
 			// think slot machine
 			chainID = big.NewInt(777)
